@@ -1,0 +1,20 @@
+###Create
+POST http://localhost:3000/products/
+Content-Type: application/json
+
+{
+  "name": "jelly",
+  "price": 6,
+  "description": "A sweet and tasty spread."
+}
+
+###Update 
+PATCH http://localhost:3000/products/8
+Content-Type: application/json
+
+{
+  "price": 99
+}
+
+###Destroy a product
+DELETE http://localhost:3000/products/4
