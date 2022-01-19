@@ -1,20 +1,29 @@
-###Create
+###All Products
+GET http://localhost:3000/products/
+
+###Show Product
+GET http://localhost:3000/products/16
+
+###Create Product
 POST http://localhost:3000/products/
 Content-Type: application/json
 
 {
-  "name": "jelly",
+  "name": "Socks",
   "price": 6,
-  "description": "A sweet and tasty spread."
+  "description": "A soft cotton piece of clothing wore on feet.",
+  "image_url": "https://pixy.org/src/51/514603.png",
+  "inventory": 22
+  
 }
 
-###Update 
-PATCH http://localhost:3000/products/8
+###Update Product
+PATCH http://localhost:3000/products/16
 Content-Type: application/json
 
 {
-  "price": 99
+  "name": "pillow"
 }
 
-###Destroy a product
+###Destroy Product
 DELETE http://localhost:3000/products/4
