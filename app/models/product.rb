@@ -2,10 +2,14 @@ class Product < ApplicationRecord
 
   validates :name, presence: true, uniqueness: true
   validates :price, presence: true, numericality: { greater_than: 0 }
-  validates :image_url, presence: true
   validates :description, presence: true, length: { in: 10..500 }
   validates :inventory, presence: true, numericality: true
 
+  scope :search, ->(name) { where("name iLIKE ?", name) }
+  scope :discounted, -> { where('price < ?', 10) }
+
+  belongs_to :supplier
+  has_many :images
 
   def is_discounted?
     price < 10
