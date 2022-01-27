@@ -1,4 +1,6 @@
 class ProductsController < ApplicationController
+  before_action :authenticate_admin, except: [:index, :show]
+
   def index
     products = Product.all
 
@@ -33,10 +35,11 @@ class ProductsController < ApplicationController
       name: params[:name],
       price: params[:price],
       inventory: params[:inventory],
-      description: params[:description]
+      description: params[:description],
+      supplier_id: Supplier.find_by(name: params[:supplier]).id
     )
     if product.save
-      render json: product
+      render json: {product: product, user: current_user}
     else
       render json: {errors: product.errors.full_messages}, status: :unprocessable_entity
     end

@@ -1,47 +1,56 @@
+@jwt = eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjozLCJleHAiOjE2NDMzMDUzMzB9.vx3KxOvErI2kzKMGPK4lLH7BA5anOflw8vROXU3z6pg
+
+@domain = http://localhost:3000
+
 ###All Products
-GET http://localhost:3000/products
+GET {{ domain }}/products
 
 ###Show Product
-GET http://localhost:3000/products/5
+GET {{ domain }}/products/5
 
 ###Products with name
-GET http://localhost:3000/products?search=dagger
+GET {{ domain }}/products?search=dagger
 
 ###Discounted Products
-GET http://localhost:3000/products?discount=true
+GET {{ domain }}/products?discount=true
 
 ###Show Product
-GET http://localhost:3000/products/8
+GET {{ domain }}/products/8
+Authorization: Bearer {{ jwt }}
 
 ###Create Product
-POST http://localhost:3000/products/
+POST {{ domain }}/products/
+Authorization: Bearer {{ jwt }}
 Content-Type: application/json
 
 {
-  "name": "Socks",
-  "price": 6,
-  "description": "A soft cotton piece of clothing wore on feet.",
-  "image_url": "https://pixy.org/src/51/514603.png",
-  "inventory": 22
+  "name": "Pineapple",
+  "price": 2,
+  "description": "A crunchy and refreshing fruit.",
+  "image_url": "https://png.pngtree.com/png-vector/20200525/ourlarge/pngtree-cute-apple-cartoon-vector-png-image_2212396.jpg",
+  "supplier": "Amazon",
+  "inventory": 50
   
 }
 
 ###Update Product
-PATCH http://localhost:3000/products/16
+PATCH {{ domain }}/products/16
+Authorization: Bearer {{ jwt }}
 Content-Type: application/json
 
 {
-  "name": "pillow"
+  "name": "Gorilla"
 }
 
 ###Destroy Product
-DELETE http://localhost:3000/products/4
+DELETE {{ domain }}/products/15
+Authorization: Bearer {{ jwt }}
 
 ###Show Supplier
-GET http://localhost:3000/suppliers/1
+GET {{ domain }}/suppliers/1
 
 ###Create Supplier
-POST http://localhost:3000/suppliers/
+POST {{ domain }}/suppliers/
 Content-Type: application/json
 
 {
@@ -52,7 +61,7 @@ Content-Type: application/json
 }
 
 ###Update Supplier
-PATCH http://localhost:3000/suppliers/3
+PATCH {{ domain }}/suppliers/3
 Content-Type: application/json
 
 {
@@ -60,4 +69,43 @@ Content-Type: application/json
 }
 
 ###Destroy Supplier
-DELETE http://localhost:3000/suppliers/3
+DELETE {{ domain }}/suppliers/3
+
+### Users create (signup)
+POST {{ domain }}/users
+Content-Type: application/json
+
+{
+  "name": "Brian",
+  "email": "brian@gmail.com",
+  "password": "password",
+  "password_confirmation": "password"
+}
+
+### Sessions create (login)
+POST {{ domain }}/sessions
+Content-Type: application/json
+
+{
+  "email": "brian@gmail.com",
+  "password": "password"
+}
+
+###Orders all
+GET {{ domain }}/orders
+Authorization: Bearer {{ jwt }}
+
+###Orders Show
+GET {{ domain }}/orders/2
+Authorization: Bearer {{ jwt }}
+
+### Orders create
+POST {{ domain }}/orders
+Content-Type: application/json
+Authorization: Bearer {{ jwt }}
+
+{
+  "product_id": 9,
+  "quantity": 10
+}
+
